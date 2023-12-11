@@ -1,3 +1,8 @@
+"""
+* This class sets up the ability to make a button from plain text in pygame
+* Author: baraltech
+* Link: https://github.com/baraltech/Menu-System-PyGame/blob/main/button.py
+"""
 class TextButton():
 	def __init__(self, image, pos, text_input, font, base_color, hovering_color):
 		self.image = image

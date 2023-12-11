@@ -1,3 +1,8 @@
+"""
+* This class sets up the ability to use png images for buttons in pygame
+* Author: russs123
+* Link: https://github.com/russs123/pygame_tutorials/blob/main/Menu/button.py
+"""
 import pygame
 
 
@@ -10,6 +15,7 @@ class Button():
 		self.rect = self.image.get_rect()
 		self.rect.topleft = (x, y)
 		self.clicked = False
+
 
 	def draw(self, surface):
 		action = False
