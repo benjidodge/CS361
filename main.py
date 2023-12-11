@@ -312,5 +312,8 @@ while run:
             menu_bg = pygame.image.load(path2)
 
     pygame.display.update()
+    clock.tick()
+    print(clock.get_fps())
+
 
 pygame.quit()
