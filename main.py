@@ -77,6 +77,7 @@ with socket(AF_INET, SOCK_STREAM) as sock:
     # Print value and close the socket.
     # print("Returned Value: " + response)
     sock.close()
+    
 path2 = "images/bgimg/" + str(array[int(response)])
 menu_bg = pygame.image.load(path2)
 
@@ -85,6 +86,7 @@ menu_bg = pygame.image.load(path2)
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, health):
         pygame.sprite.Sprite.__init__(self)
+        
         self.image = pygame.image.load("images/player.png")
         self.rect = self.image.get_rect()
         self.rect.center = [x, y]
@@ -107,11 +109,13 @@ class Player(pygame.sprite.Sprite):
 
         # Draw health bar
         pygame.draw.rect(screen, red, (self.rect.x, (self.rect.bottom), self.rect.width, 15))
+        
         if self.health_remaining > 0:
             pygame.draw.rect(screen, green, (self.rect.x, (self.rect.bottom), int(self.rect.width * (self.health_remaining / self.health_start)), 15))
         elif self.health_remaining <= 0:
             self.kill()
             game_over = -1
+            
         return game_over
 
 
@@ -131,16 +135,18 @@ class Fire(pygame.sprite.Sprite):
             speed = 2
         elif difficulty == 'hard':
             speed = 5
+            
         self.rect.y += speed
+        
         # reset location after hitting bottom of screen
         if self.rect.y > SCREEN_HEIGHT:
             self.rect.y = random.randint(-800, -100)
             self.rect.x = random.randint(5, SCREEN_WIDTH)
+            
         # collisions - reset position after collision
         if pygame.sprite.spritecollide(self, player_group, False, pygame.sprite.collide_mask):
             self.rect.y = random.randint(-800, -100)
             player.health_remaining -= 1
-        # print(self.rect.y)
 
 
 # Create sprite groups
@@ -190,6 +196,7 @@ while run:
                 run = False
 
             pygame.draw.rect(screen, black, pygame.Rect(148, 680, 560, 55))
+            
             draw_text('Use the options menu to change game difficulty.', font30, white, 150,680)
             draw_text('Use the controls menu to learn the game basics.', font30, white, 150,710)
 
@@ -200,11 +207,13 @@ while run:
 
             # Draw difficulty buttons
             old_difficulty = difficulty
+            
             EASY_MOUSE_POS = pygame.mouse.get_pos()
             NORMAL_MOUSE_POS = pygame.mouse.get_pos()
             HARD_MOUSE_POS = pygame.mouse.get_pos()
 
             pygame.draw.rect(screen, black, pygame.Rect(190, 245, 490, 50))
+            
             DIFFICULTY_TEXT = draw_text('Select Difficulty:', font30, white, 200, 260)
 
             pygame.draw.rect(screen, black, pygame.Rect(98, 500, 725, 100))
@@ -231,9 +240,11 @@ while run:
                     difficulty = 'normal'
                 if HARD_SELECT.checkForInput(HARD_MOUSE_POS):
                     difficulty = 'hard'
+                    
             if clicked:
                 if revert_button.draw(screen):
                     difficulty = old_difficulty
+                    
             if NORMAL_SELECT.checkForInput(NORMAL_MOUSE_POS):
                 difficulty = 'normal'
             if HARD_SELECT.checkForInput(HARD_MOUSE_POS):
@@ -242,10 +253,12 @@ while run:
         if menu_state == "controls":
             pygame.draw.rect(screen, black, pygame.Rect(190, 215, 490, 40))
             pygame.draw.rect(screen, black, pygame.Rect(30, 265, 755, 120))
+            
             draw_text('Welcome to Frosty Dash!', font40, white, int(SCREEN_WIDTH / 2 - 200), int(SCREEN_HEIGHT / 2 - 250))
             draw_text('The objective of the game is to dodge the falling fire balls.', font30, white, int(SCREEN_WIDTH / 2 - 400), int(SCREEN_HEIGHT / 2 - 200))
             draw_text('To move, use the left and right arrow keys or use the A key to move', font30, white, int(SCREEN_WIDTH / 2 - 400), int(SCREEN_HEIGHT / 2 - 140))
             draw_text('left and the D key to move right.', font30, white, int(SCREEN_WIDTH / 2 - 400), int(SCREEN_HEIGHT / 2 - 110))
+            
             if back_button.draw(screen):
                 menu_state = "main"
 
@@ -260,10 +273,12 @@ while run:
 
                 # update sprite groups
                 fire_group.update()
+                
             elif game_over == -1:
                 draw_text('GAME OVER!', font40, white, int(SCREEN_WIDTH / 2 - 110), int(SCREEN_HEIGHT / 2 - 170))
                 draw_text('Press 1 to play again or 2 to go to main menu.', font30, white, int(SCREEN_WIDTH / 2 - 250), int(SCREEN_HEIGHT / 2 - 110))
                 key = pygame.key.get_pressed()
+                
                 if key[pygame.K_1]:
                     countdown = 3
                     player = Player(int(SCREEN_WIDTH / 2), SCREEN_HEIGHT - 100, 3)
@@ -272,14 +287,17 @@ while run:
                         item.kill()
                     create_fire()
                     game_over = 0
+                    
                 if key[pygame.K_2]:
                     menu_state = 'main'
                     game_started = False
                     countdown = 3
                     player = Player(int(SCREEN_WIDTH / 2), SCREEN_HEIGHT - 100, 3)
                     player_group.add(player)
+                    
                     for item in fire_group:
                         item.kill()
+                        
                     create_fire()
                     game_over = 0
 
@@ -298,6 +316,7 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+            
         if event.type == timer_event:
             with socket(AF_INET, SOCK_STREAM) as sock:
                 sock.connect((hostname, port_num))
@@ -308,6 +327,7 @@ while run:
                 # Print value and close the socket.
                 # print("Returned Value: " + response)
                 sock.close()
+                
             path2 = "images/bgimg/" + str(array[int(response)])
             menu_bg = pygame.image.load(path2)
 
