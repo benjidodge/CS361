@@ -217,6 +217,7 @@ while run:
             DIFFICULTY_TEXT = draw_text('Select Difficulty:', font30, white, 200, 260)
 
             pygame.draw.rect(screen, black, pygame.Rect(98, 500, 725, 100))
+            
             draw_text('Easy difficulty will slow the fire balls, while hard speeds them up', font30, white, 100, 500)
             draw_text('Use the counter clockwise arrow to revert changes', font30, white, 100, 540)
             draw_text('Note: Changes will be saved after clicking Back', font30, white, 100, 580)
@@ -281,10 +282,13 @@ while run:
                 
                 if key[pygame.K_1]:
                     countdown = 3
+                    
                     player = Player(int(SCREEN_WIDTH / 2), SCREEN_HEIGHT - 100, 3)
                     player_group.add(player)
+                    
                     for item in fire_group:
                         item.kill()
+                        
                     create_fire()
                     game_over = 0
                     
@@ -292,6 +296,7 @@ while run:
                     menu_state = 'main'
                     game_started = False
                     countdown = 3
+                    
                     player = Player(int(SCREEN_WIDTH / 2), SCREEN_HEIGHT - 100, 3)
                     player_group.add(player)
                     
@@ -332,6 +337,7 @@ while run:
             menu_bg = pygame.image.load(path2)
 
     pygame.display.update()
+    
     clock.tick()
     print(clock.get_fps())
 
