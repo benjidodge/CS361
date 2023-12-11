@@ -1,8 +1,8 @@
 import pygame
 from pygame.locals import *
 import random
-import button
-import textButton
+import button as button
+import textButton as textButton
 from socket import *
 import os
 import time
